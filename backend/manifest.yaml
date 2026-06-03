@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: doctor-backend
+  namespace: doctor-dev
+  labels:
+    project: doctor-appointment
+    tier: backend
+    env: dev
+data:
+  DB_HOST: mysql 
+  DB_USERNAME: doctor 
+  DB_PASSWORD: DoctorApp1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: doctor-backend
+  namespace: doctor-dev
+  labels:
+    project: doctor-appointment
+    tier: backend
+    env: dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      project: doctor-appointment
+      tier: backend
+      env: dev
+  template:
+    metadata:
+      labels:
+        project: doctor-appointment
+        tier: backend
+        env: dev
+    spec:
+      containers:
+      - name: backend
+        image: vidya07422/doctor-backend:v1
+        envFrom:
+        - configMapRef:
+            name: doctor-backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: doctor-dev
+  labels:
+    project: doctor-appointment
+    tier: backend
+    env: dev
+spec:
+  selector:
+    project: doctor-appointment
+    tier: backend
+    env: dev
+  ports:
+  - protocol: TCP
+    port: 80 # service port which you want to expose
+    targetPort: 80 # container port  
