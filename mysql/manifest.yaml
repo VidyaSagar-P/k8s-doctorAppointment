@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata: 
   name: doctor-db-mysql
+  namespace: doctor-dev
   labels:
     project: doctor-appointment
     tier: database
@@ -13,6 +14,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: doctor-db-mysql
+  namespace: doctor-dev
   labels:
     project: doctor-appointment
     tier: database
@@ -33,7 +35,7 @@ spec:
     spec:
       containers:
       - name: database
-        image: vidya07422/doctor-mysql
+        image: vidya07422/doctor-mysq:v1
         envFrom:
         - configMapRef:
             name: doctor-db-mysql
@@ -41,7 +43,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: doctor-db-mysql
+  name: mysql
+  namespace: doctor-dev
   labels:
     project: doctor-appointment
     tier: database
