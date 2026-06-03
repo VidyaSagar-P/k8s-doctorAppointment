@@ -35,7 +35,7 @@ spec:
       - name: database
         image: vidya07422/doctor-mysql
         envFrom:
-          configMapRef:
+        - configMapRef:
             name: doctor-db-mysql
 ---
 apiVersion: v1
