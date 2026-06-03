@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: database
-        image: vidya07422/doctor-mysq:v1
+        image: vidya07422/doctor-mysql:v1
         envFrom:
         - configMapRef:
             name: doctor-db-mysql
