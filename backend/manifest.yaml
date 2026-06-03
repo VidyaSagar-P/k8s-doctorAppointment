@@ -58,5 +58,5 @@ spec:
     env: dev
   ports:
   - protocol: TCP
-    port: 80 # service port which you want to expose
-    targetPort: 80 # container port  
+    port: 8080 # service port which you want to expose
+    targetPort: 8080 # container port  
